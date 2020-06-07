@@ -150,7 +150,7 @@ questDifficulty = mobs.power / 5
 
 Range: `0-99%`
 
-A 1% risk edge is always kept to encourage fun, and to avoid guaranteed rewards. Once a quest is completed, it cannot be accessed again by the same player. The formula to calculating the quest's success odds (in percentage) is provided below:
+A quest's success odds determines the probability of successful completion with the assembled hero squad. A 1% risk edge is always kept to encourage fun, and to avoid guaranteed rewards. Once a quest is completed, it cannot be accessed again by the same player. The formula to calculating the quest's success odds (in percentage) is provided below:
 
 ```
 questSuccessOdds = 100 - abs(floor[squad.power / mobs.power] * 100) + squad.luck
