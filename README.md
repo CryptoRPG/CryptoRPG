@@ -97,7 +97,7 @@ attackDamage = damageMin + [random % ([damageMax + 1] - damageMin)]
 **General damage done**
 
 ```
-damageDone = attacker.damage - defender.defense - defender.health + levelDifferenceBonus
+damageDone = attacker.damage - defender.health - defender.defense + levelDifferenceBonus
 ```
 
 ### Loot
