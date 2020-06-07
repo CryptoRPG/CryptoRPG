@@ -118,6 +118,8 @@ Range: `0.0-2.0%`
 
 Luck is a stat owned by heroes. It helps determines chances of positive events occurring, such as mob drops and quest rewards' quality.
 
+Because the maximum amount of heroes in a squad is `10`, the maximum luck aquirable on a squad is `+20%`.
+
 **Power**
 
 The power stat is a computed stat used to determine the total capabilities and power of a living entity.
@@ -164,6 +166,8 @@ Different performance scores will yield different quality rewards for that speci
 Quests are essential missions where you send your heroes in order to gain rewards. Certain quests have special requirements, while others only require a living hero.
 
 Depending on the player's heroes, quests can be a great way to get rewards, advance the heroes' XP points, and advance in campaigns. However, sending heroes on quests also involves risk, depending on its stats, the quest itself, and it's requirements.
+
+A squad of heroes is selected by the player before starting each quest. This squad may contain a `1-10` range of heroes, and *may* contain a single pet.
 
 In order to provide an overview of a quest's difficulty with the player's designated hero squad, a probability ranging `0-99%` is provided to the player to assess their risk.
 
