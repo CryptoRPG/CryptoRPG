@@ -78,7 +78,7 @@ levelDifferenceFactor = abs(attacker.level - defender.level)
 
 **Level difference bonus**
 
-Range: `0-30%
+Range: `0-30%`
 
 The entity with the lowest level among the attacker and defender will either receive an extra *percentage* on its attack damage or defense respectively.
 
