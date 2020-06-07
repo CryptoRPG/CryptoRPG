@@ -136,7 +136,11 @@ heroPower = liveEntityPower(hero) + (hero.luck * 10)
 
 ### Campaign
 
-Campaigns are collections of quests. They are automatically unlocked when the player's power reaches or surpasses a certain threshold (depending on the campaign). Once unlocked, the campaigns quests may be accessed by the player. Harder campaigns offer greater rewards and loot, however they also involve greater risks. The purpose of campaigns is to limit the quests on which the player may risk their entities, as it is proportional to the player's power. This prevents potentially sacrificing a large amount of entities to high-risk quests, and encourages steady growth compared to a high-risk approach. The more assets the player owns, the greater they can risk on quests for greater rewards. Once a campaign is completed, that is--when all of its quests are completed--the player will receive a final reward, with its quality depending on the campaign's performance grade.
+Campaigns are collections of quests. They are automatically unlocked when the player's power reaches or surpasses a certain threshold (depending on the campaign). Once unlocked, the campaigns quests may be accessed by the player. Harder campaigns offer greater rewards and loot, however they also involve greater risks.
+
+The purpose of campaigns is to limit the quests on which the player may risk their entities, as it is proportional to the player's power. This prevents potentially sacrificing a large amount of entities to high-risk quests, and encourages steady growth compared to a high-risk approach.
+
+The more assets the player owns, the greater they can risk on quests for greater rewards. Once a campaign is completed, that is--when all of its quests are completed--the player will receive a final reward, with its quality depending on the campaign's performance grade.
 
 The campaign's performance score is calculated as follows:
 
@@ -157,7 +161,11 @@ Different performance scores will yield different quality rewards for that speci
 
 ### Quests
 
-Quests are essential missions where you send your heroes in order to gain rewards. Certain quests have special requirements, while others only require a living hero. Depending on the player's heroes, quests can be a great way to get rewards, advance the heroes' XP points, and advance in campaigns. However, sending heroes on quests also involves risk, depending on its stats, the quest itself, and it's requirements. In order to provide an overview of a quest's difficulty with the player's designated hero squad, a probability ranging `0-99%` is provided to the player to assess their risk.
+Quests are essential missions where you send your heroes in order to gain rewards. Certain quests have special requirements, while others only require a living hero.
+
+Depending on the player's heroes, quests can be a great way to get rewards, advance the heroes' XP points, and advance in campaigns. However, sending heroes on quests also involves risk, depending on its stats, the quest itself, and it's requirements.
+
+In order to provide an overview of a quest's difficulty with the player's designated hero squad, a probability ranging `0-99%` is provided to the player to assess their risk.
 
 **Difficulty**
 
@@ -171,7 +179,9 @@ questDifficulty = mobs.power / 5
 
 Range: `0-99%`
 
-A quest's success odds determines the probability of successful completion with the assembled hero squad. A 1% risk edge is always kept to encourage fun, and to avoid guaranteed rewards. Once a quest is completed, it cannot be accessed again by the same player. The formula for calculating the quest's success odds (in percentage) is provided below:
+A quest's success odds determines the probability of successful completion with the assembled hero squad. A 1% risk edge is always kept to encourage fun, and to avoid guaranteed rewards.
+
+Once a quest is completed, it cannot be accessed again by the same player. The formula for calculating the quest's success odds (in percentage) is provided below:
 
 ```
 questSuccessOdds = 100 - abs(floor[squad.power / mobs.power] * 100) + squad.luck
