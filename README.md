@@ -1,6 +1,6 @@
 # CryptoRPG
 
-An adventure and risk game based off the ERC721 standard protocol. Assemble your heroes, begin epic campaigns and send them on quests to defeat monsters and bosses, all while gaining rewards and loot along the way.
+An adventure and risk game based off the [ERC721 token standard](http://erc721.org/). Assemble your heroes, begin epic campaigns and send them on quests to defeat monsters and bosses, all while gaining rewards and loot along the way.
 
 # Player entities
 
@@ -57,9 +57,10 @@ Composition:
 ```
 ...
 bool isBoss;
+uint8[] weaknesses;
 ```
 
-# Power
+# Damange calculation
 
 Attack damage:
 
@@ -73,26 +74,14 @@ General damage done:
 damageDone = attacker.damage - defender.defense - defender.health
 ```
 
-Live entity power:
-
-```
-liveEntityPower = (entity.level * 20) + entity.health + entity.damage + entity.defense;
-```
-
-Hero power:
-
-```
-heroPower = liveEntityPower(hero) + (hero.luck * 3)
-```
-
-# Loot and rewards
+# Loot
 
 **Drops from mobs**
 
-Chances for a drop to occur from a mob detailed in the formula below:
+Chances for a drop to occur (in percentages) from a mob detailed in the formula for `mobDropChance` below:
 
 ```
-chance = [(mob.power) % 100] - (hero.luck % 50)
+mobDropChance = [(mob.power) % 100] - (hero.luck % 50)
 ```
 
 # Stats
@@ -111,7 +100,7 @@ The level stat helps balance & control mob difficulty, rewards, and others.
 
 Range: `1-300`
 
-The health stat is the base survivability stat of a living entity. When the living entity takes damage and the health decreases in battle, the entity must either be healed by the player using items, or will slowly self-regenerate over time.
+The health stat is the base survivability stat of a living entity. When the living entity takes damage and the health decreases in battle, the entity must either be healed by the player using items, or will slowly self-regenerate over time. When the health of a living entity becomes 0, this entity dies.
 
 **Armor**
 
@@ -121,10 +110,44 @@ The armor stat helps block attack damage without affecting the health of the liv
 
 **Luck**
 
-Range: `0-30%`
+Range: `0.0-2.0%`
 
 Luck is a stat owned by heroes. It helps determines chances of positive events occurring, such as mob drops and quest rewards' quality.
 
 **Power**
 
 The power stat is a computed stat used to determine the total capabilities and power of a living entity.
+
+Live entity power formula:
+
+```
+liveEntityPower = (entity.level * 20) + entity.health + entity.damage + entity.defense;
+```
+
+Hero power formula:
+
+```
+heroPower = liveEntityPower(hero) + (hero.luck * 10)
+```
+
+# Quests
+
+Quests are essential missions where you send your heroes in order to gain rewards. Certain quests have special requirements, while others only require a living hero. Depending on the player's heroes, quests can be a great way to get rewards, advance the heroes' XP points, and advance in campaigns. However, sending heroes on quests also involves risk, depending on its stats, the quest itself, and it's requirements. In order to provide an overview of a quest's difficulty with the player's designated hero squad, a probability ranging `0-99%` is provided to the player to assess their risk.
+
+**Difficulty**
+
+The difficulty of a quest helps identify a quest's difficulty without a squad context.
+
+```
+questDifficulty = mobs.power / 5
+```
+
+**Success odds**
+
+Range: `0-99%`
+
+A 1% risk edge is always kept to encourage fun, and to avoid guaranteed rewards. Once a quest is completed, it cannot be accessed again by the same player. The formula to calculating the quest's success odds (in percentage) is provided below:
+
+```
+questSuccessOdds = 100 - abs(floor[squad.power / mobs.power] * 100) + squad.luck
+```
