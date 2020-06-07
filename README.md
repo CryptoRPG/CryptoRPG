@@ -1,16 +1,20 @@
-# CryptoRPG
+<p align="center">
+<strong>CryptoRPG</strong>
 
-An adventure and risk game based off the [ERC721 token standard](http://erc721.org/). Assemble your heroes, begin epic campaigns and send them on quests to defeat monsters and bosses, all while gaining rewards and loot along the way.
+<i>An adventure and risk game based off the [ERC721 token standard](http://erc721.org/). Assemble your heroes, begin epic campaigns and send them on quests to defeat monsters and bosses, all while gaining rewards and loot along the way.</i>
 
-# Player entities
+<img src="https://i.ibb.co/xDRN7df/cryptorpg.png" />
+</p>
+
+## Player entities
 
 A player may control various types of entities, ranging from heroes to items and pets. Other entities such as quests, and bosses cannot be owned by players. Player-controlled entities may be traded (bought and sold).
 
-# Mobs
+## Mobs
 
 Mobs are the game's main enemies. They manifest in masses, and successfully defeating them grants heroes XP points. Killing mobs provide small chances of dropping loot.
 
-# Entities
+## Entities
 
 **Basic entity**
 
@@ -60,7 +64,7 @@ bool isBoss;
 uint8[] weaknesses;
 ```
 
-# Damange calculation
+## Damange calculation
 
 Attack damage:
 
@@ -74,7 +78,7 @@ General damage done:
 damageDone = attacker.damage - defender.defense - defender.health
 ```
 
-# Loot
+## Loot
 
 **Drops from mobs**
 
@@ -84,7 +88,7 @@ Chances for a drop to occur (in percentages) from a mob detailed in the formula 
 mobDropChance = [(mob.power) % 100] - (hero.luck % 50)
 ```
 
-# Stats
+## Stats
 
 **Name**
 
@@ -130,7 +134,7 @@ Hero power formula:
 heroPower = liveEntityPower(hero) + (hero.luck * 10)
 ```
 
-# Quests
+## Quests
 
 Quests are essential missions where you send your heroes in order to gain rewards. Certain quests have special requirements, while others only require a living hero. Depending on the player's heroes, quests can be a great way to get rewards, advance the heroes' XP points, and advance in campaigns. However, sending heroes on quests also involves risk, depending on its stats, the quest itself, and it's requirements. In order to provide an overview of a quest's difficulty with the player's designated hero squad, a probability ranging `0-99%` is provided to the player to assess their risk.
 
