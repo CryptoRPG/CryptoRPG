@@ -66,13 +66,35 @@ uint8[] weaknesses;
 
 ### Damange calculation
 
-Attack damage:
+**Level difference factor**
+
+Range: `0-3`
+
+The *levelDifferenceFactor* contributes heavily to the total damage done depending on the difference of the attacking and defending entity. It may also invalidate (or multiply) rewards from quests. If there is no difference between levels, the `levelDifferenceFactor` will be `0`, and will have no effect.
+
+```
+levelDifferenceFactor = abs(attacker.level - defender.level)
+```
+
+**Level difference bonus**
+
+Range: `0-30%
+
+The entity with the lowest level among the attacker and defender will either receive an extra *percentage* on its attack damage or defense respectively.
+
+This is called the `levelDifferenceBonus`, and will be applied to the corresponding entity during the damage calculation step. So if the `levelDifferenceFactor` is `3`, and the attacker holds the larger level between the two entities, a `+30%` attack damage bonus will be applied to the total damage done.
+
+```
+levelDifferenceBonus = levelDifferenceFactor * 100
+```
+
+**Attack damage**
 
 ```
 attackDamage = damageMin + [random % ([damageMax + 1] - damageMin)]
 ```
 
-General damage done:
+**General damage done**
 
 ```
 damageDone = attacker.damage - defender.defense - defender.health
