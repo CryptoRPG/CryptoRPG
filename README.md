@@ -97,7 +97,7 @@ attackDamage = damageMin + [random % ([damageMax + 1] - damageMin)]
 **General damage done**
 
 ```
-damageDone = attacker.damage - defender.health - defender.defense + levelDifferenceBonus
+damageDone = attacker.damage - defender.health - defender.defense + levelDifferenceBonus(attacker, defender)
 ```
 
 ### Loot
@@ -175,10 +175,15 @@ campaignPerformanceScore = floor(totalQuestsAmount / totalQuestAttempts) * 100
 Once the campaign is completed, it will be assigned a grade depending on it's performance score:
 
 *S+* >= 95%
+
 *S* >= 90%
+
 *A* >= 85%
+
 *B* >= 80%
+
 *C* >= 75%
+
 *D* >= 70%
 
 Different performance scores will yield different quality rewards for that specific campaign.
