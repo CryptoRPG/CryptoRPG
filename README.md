@@ -217,3 +217,11 @@ Once a quest is completed, it cannot be accessed again by the same player. The f
 ```
 questSuccessOdds = 100 - abs(floor[squad.power / mobs.power] * 100) + squad.luck
 ```
+
+### Developer notes
+
+**Sprites**
+
+Hat: 6x4 -> 7x
+Head: 5x5 -> 7x
+Eye: Based on head, 2px down from top
