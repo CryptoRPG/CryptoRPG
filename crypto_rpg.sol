@@ -73,13 +73,13 @@ contract CryptoRPG {
 		return random % dnaModulus;
 	}
 	
-	function _generateRandomValue(string memory _string, uint _minimum, uint _maximum) private pure view returns (uint16) {
+	function _generateRandomValue(string memory _string, uint _minimum, uint _maximum) private pure returns (uint16) {
 		uint random = uint(keccak256(abi.encodePacked(_string)));
 		
 		return uint16(_minimum + (random % ((_maximum + 1) - _minimum)));
 	}
 	
-	function calculateLevelDifferenceFactor(Entity memory _attacker, Entity memory _defender) private pure returns (uint16) {
+	function calculateLevelDifferenceFactor(Entity memory _attacker, Entity memory _defender) private view returns (uint16) {
 		uint16 levelDifferenceFactor = uint16(_attacker.level - _defender.level);
 		
 		if (levelDifferenceFactor > levelDifferenceFactorMax) {
@@ -97,7 +97,7 @@ contract CryptoRPG {
 		return uint16(_generateRandomValue(_string, _damageMinimum, _damageMaximum));
 	}
 	
-	function calculateGeneralDamageDone(Entity memory _attacker, Entity memory _defender) private returns (uint16) {
+	function calculateGeneralDamageDone(Entity memory _attacker, Entity memory _defender) private view returns (uint16) {
 		return _attacker.attack - _defender.health - _defender.defense + calculateLevelDifferenceBonus(calculateLevelDifferenceFactor(_attacker, _defender));
 	}
 	

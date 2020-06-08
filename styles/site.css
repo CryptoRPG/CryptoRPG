@@ -1,0 +1,51 @@
+html, body {
+	height: 100%;
+}
+
+body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	margin: 0;
+	padding: 0;
+	background: radial-gradient(#222, #191919);
+}
+
+.anchor {
+	position: relative;
+}
+
+#hero {
+	width: 35px;
+	height: 35px;
+	padding: 10px;
+	background-color: rgba(100, 100, 100, 0.2);
+	border-radius: 6px;
+}
+
+#hero #hero-head {
+	z-index: 1;
+}
+
+#hero #hero-eyes {
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: 2;
+}
+
+#dna {
+	background-color: #333;
+	border: 2px solid #444;
+	border-radius: 3px;
+	margin-top: 1em;
+}
+
+#generate {
+	margin-top: 0.5em;
+	background-color: green;
+	border: 0;
+	border-radius: 3;
+	color: #fff;
+}
