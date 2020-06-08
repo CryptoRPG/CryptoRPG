@@ -2,6 +2,10 @@ html, body {
 	height: 100%;
 }
 
+html {
+	font-size: 16px;
+}
+
 body {
 	display: flex;
 	justify-content: center;
@@ -10,21 +14,24 @@ body {
 	margin: 0;
 	padding: 0;
 	background: radial-gradient(#222, #191919);
+	font-family: "Segoe UI", sans-serif;
 }
 
 .anchor {
 	position: relative;
 }
 
-.flex-col-center {
+.flex-center {
 	display: flex;
-	flex-direction: column;
 	justify-items: center;
 	align-items: center;
 }
 
+.flex-col {
+	flex-direction: column;
+}
+
 #hero {
-	align-items: flex-start;
 	padding: 10px;
 	background-color: rgba(100, 100, 100, 0.2);
 	border-radius: 6px;
@@ -53,10 +60,25 @@ body {
 	color: #fff;
 }
 
-#generate {
+.btn-group {
+	display: flex;
+	flex-align-items: stretch;
+}
+
+.btn-group > .btn:nth-child(1) {
+	margin-right: 0.5em;
+}
+
+.btn {
 	margin-top: 0.5em;
-	background-color: green;
+	background-color: #333;
 	border: 0;
-	border-radius: 3;
+	border-radius: 3px;
 	color: #fff;
+	padding: 5px 6px;
+	width: 100%;
+}
+
+.btn.green {
+	background-color: green;
 }

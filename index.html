@@ -14,15 +14,19 @@
 		<link rel="stylesheet" href="styles/site.css" />
 	</head>
 	<body>
-		<div class="flex-col-center" id="hero">
-			<img id="hero-hat" alt="Hat" src="assets/hero/hats/0/0.png" />
-			<div class="anchor">
-				<img id="hero-head" alt="Head" src="assets/hero/heads/0/0.png" />
-				<img id="hero-eyes" alt="Eyes" src="assets/hero/eyes/0/0.png" />
+		<div class="floater">
+			<div class="flex-center flex-col" id="hero">
+				<img id="hero-hat" alt="Hat" src="assets/hero/hats/0/0.png" />
+				<div class="anchor">
+					<img id="hero-head" alt="Head" src="assets/hero/heads/0/0.png" />
+					<img id="hero-eyes" alt="Eyes" src="assets/hero/eyes/0/0.png" />
+				</div>
+			</div>
+			<input id="dna" type="number" placeholder="Enter hero DNA" />
+			<div class="btn-group">
+				<button class="btn green" id="generate">Generate</button>
+				<button class="btn" id="random">Random</button>
 			</div>
 		</div>
-		<input id="dna" type="number" placeholder="Enter hero DNA" />
-		<button id="generate">Generate</button>
-		<button id="random">Random</button>
 	</body>
 </html>

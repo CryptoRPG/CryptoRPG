@@ -6,8 +6,8 @@ const consts = {
 	assetCategoryHats: "hats",
 	assetCategoryHeads: "heads",
 	assetCategoryEyes: "eyes",
-	randomHatsMax: 3,
-	randomHeadsMax: 1,
+	randomHatsMax: 5,
+	randomHeadsMax: 7,
 	randomEyesMax: 6
 };
 
@@ -23,6 +23,9 @@ $(document).ready(function() {
 	const $dna = $("#dna");
 	const $generate = $("#generate");
 	const $random = $("#random");
+	
+	// Configure the DNA input and set its max length.
+	$dna.attr("maxlength", consts.dnaLength);
 	
 	$generate.click(function() {
 		const dnaString = $dna.val();
@@ -55,11 +58,11 @@ $(document).ready(function() {
 	});
 
 	$random.click(function() {
-		loadHero({
-			hat: randomInt(0, consts.randomHatsMax),
-			head: randomInt(0, consts.randomHeadsMax),
-			eyes: randomInt(0, consts.randomEyesMax)
-		});
+		const heroDna = generateRandomHeroDna();
+		
+		loadHero(heroDna);
+		$dna.val(heroDna.hat.toString() + heroDna.head.toString() + heroDna.eyes.toString());
+		$dna.focus();
 	});
 });
 
@@ -80,4 +83,12 @@ function loadHero(hero) {
 
 function randomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+function generateRandomHeroDna() {
+	return {
+		hat: randomInt(0, consts.randomHatsMax),
+		head: randomInt(0, consts.randomHeadsMax),
+		eyes: randomInt(0, consts.randomEyesMax)
+	};
 }
