@@ -103,12 +103,6 @@ $document.ready(function() {
 	}
 });
 
-/**
- * Apply hero DNA from the window location hash upon
- * every hash change event.
- */
-$(window).on("hashchange", handleDnaInHash.bind(this));
-
 function getIntAt(string, index) {
 	return parseInt(string[index]);
 }
