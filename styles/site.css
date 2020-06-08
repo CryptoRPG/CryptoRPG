@@ -1,3 +1,7 @@
+* {
+	font-family: monospace;
+}
+
 html, body {
 	height: 100%;
 }
@@ -14,7 +18,7 @@ body {
 	margin: 0;
 	padding: 0;
 	background: radial-gradient(#222, #191919);
-	font-family: "Segoe UI", sans-serif;
+	font-family: monospace, sans-serif;
 }
 
 .anchor {
@@ -31,14 +35,14 @@ body {
 	flex-direction: column;
 }
 
-#hero {
+#hero-wrap {
 	position: relative;
 	padding: 20px 10px;
-	background-color: rgba(100, 100, 100, 0.2);
+	background: radial-gradient(#222, #333);
 	border-radius: 6px;
 }
 
-#hero #copy-hero {
+#hero-wrap #copy-hero {
 	position: absolute;
 	top: 10px;
 	right: 10px;
@@ -46,19 +50,28 @@ body {
 	color: #999;
 }
 
-#hero #hero-hat {
+#hero-wrap #hero-hat {
 	/*margin-left: -7px;*/
 }
 
-#hero #hero-head {
+#hero-wrap #hero-head {
 	z-index: 1;
 }
 
-#hero #hero-eyes {
+#hero-wrap #hero-eyes {
 	position: absolute;
 	left: 0;
 	top: 0;
 	z-index: 2;
+}
+
+#hero-wrap #hero-body {
+	
+}
+
+#hero-wrap #hero-shield {
+	position: absolute;
+	transform: translate(-50%, -20%);
 }
 
 #dna {

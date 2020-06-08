@@ -1,17 +1,26 @@
 const consts = {
 	// TODO: DNA length is hard-coded into regex.
-	dnaPattern: /[0-9]{3}/,
+	dnaPattern: /[0-9]{6}/,
 	
-	dnaLength: 3,
+	dnaLength: 6,
 	dnaHatPos: 0,
 	dnaHeadPos: 1,
 	dnaEyesPos: 2,
+	dnaBodyPos: 3,
+	dnaShieldPos: 4,
+	dnaWeaponPos: 5,
 	assetCategoryHats: "hats",
 	assetCategoryHeads: "heads",
 	assetCategoryEyes: "eyes",
+	assetCategoryBody: "body",
+	assetCategoryShields: "shields",
+	assetCategoryWeapons: "weapons",
 	randomHatsMax: 6,
 	randomHeadsMax: 7,
-	randomEyesMax: 6
+	randomEyesMax: 6,
+	randomBodyMax: 0,
+	randomShieldsMax: 0,
+	randomWeaponMax: 0
 };
 
 let $document = $(document);
@@ -19,26 +28,35 @@ let $dna;
 let $generate;
 let $random;
 let $copyHero;
+let $heroWrap;
 let $heroHat;
 let $heroHead;
 let $heroEyes;
+let $heroBody;
+let $heroShield;
+let $heroWeapon;
 
 $document.ready(function() {
 	// Assign hero parts elements.
 	$heroHat = $("#hero-hat");
 	$heroHead = $("#hero-head");
 	$heroEyes = $("#hero-eyes");
+	$heroBody = $("#hero-body");
+	$heroShield = $("#hero-shield");
+	$heroWeapon = $("#hero-weapon");
 	
 	// Assign UI elements.
+	$heroWrap = $("#hero-wrap");
 	$dna = $("#dna");
 	$generate = $("#generate");
 	$random = $("#random");
 	$copyHero = $("#copy-hero");
 	
-	$dna.focus();
-	
 	// Configure the DNA input and set its max length.
 	$dna.attr("maxlength", consts.dnaLength);
+	
+	// Initially focus the DNA input.
+	$dna.focus();
 	
 	$generate.click(function() {
 		const dnaString = $dna.val();
@@ -103,6 +121,10 @@ function loadHero(hero) {
 	loadAsset(consts.assetCategoryHats, hero.hat, $heroHat);
 	loadAsset(consts.assetCategoryHeads, hero.head, $heroHead);
 	loadAsset(consts.assetCategoryEyes, hero.eyes, $heroEyes);
+	loadAsset(consts.assetCategoryBody, hero.body, $heroBody);
+	loadAsset(consts.assetCategoryShields, hero.shield, $heroShield);
+	//loadAsset(consts.assetCategoryWeapons, hero.weapon, $heroWeapon);
+	$heroWrap.css("background", `radial-gradient(#222, rgba(${hero.background.r}, ${hero.background.g}, ${hero.background.b}, 0.4)`);
 	$dna.val(assembleHeroDna(hero));
 	$dna.focus();
 	console.log("Hero loaded", hero);
@@ -119,7 +141,13 @@ function loadHeroFromDnaString(heroDnaString) {
 		loadHero({
 			hat: getIntAt(heroDnaString, consts.dnaHatPos),
 			head: getIntAt(heroDnaString, consts.dnaHeadPos),
-			eyes: getIntAt(heroDnaString, consts.dnaEyesPos)
+			eyes: getIntAt(heroDnaString, consts.dnaEyesPos),
+			body: getIntAt(heroDnaString, consts.dnaBodyPos),
+			shield: getIntAt(heroDnaString, consts.dnaShieldPos),
+			weapon: getIntAt(heroDnaString, consts.dnaWeaponPos),
+			
+			// TODO: Should be loaded from DNA.
+			background: getRandomRgbColor()
 		});
 	}
 	catch (error) {
@@ -138,7 +166,11 @@ function generateRandomHeroDna() {
 	return {
 		hat: randomInt(0, consts.randomHatsMax),
 		head: randomInt(0, consts.randomHeadsMax),
-		eyes: randomInt(0, consts.randomEyesMax)
+		eyes: randomInt(0, consts.randomEyesMax),
+		body: randomInt(0, consts.randomBodyMax),
+		shield: randomInt(0, consts.randomShieldsMax),
+		weapon: randomInt(0, consts.randomWeaponsMax),
+		background: getRandomRgbColor()
 	};
 }
 
@@ -149,5 +181,24 @@ function verifyHeroDnaStringString(heroDnaString) {
 }
 
 function assembleHeroDna(heroDna) {
-	return heroDna.hat.toString() + heroDna.head.toString() + heroDna.eyes.toString();
+	return heroDna.hat.toString()
+		+ heroDna.head.toString()
+		+ heroDna.eyes.toString()
+		+ heroDna.body.toString()
+		+ heroDna.shield.toString()
+		+ heroDna.weapon.toString();
+}
+
+function getRandomHexColor() {
+	return Math.floor(Math.random()*16777215).toString(16);
+}
+
+function getRandomRgbColor() {
+  let num = Math.round(0xffffff * Math.random());
+  
+  return {
+	  r: num >> 16,
+	  g: num >> 8 & 255,
+	  b: num & 255
+  };
 }
