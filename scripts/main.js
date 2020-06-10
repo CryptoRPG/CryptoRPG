@@ -1,8 +1,8 @@
 const consts = {
 	// TODO: DNA length is hard-coded into regex.
-	dnaPattern: /[0-9]{6}/,
+	dnaPattern: /[0-9]{5}/,
 	
-	dnaLength: 6,
+	dnaLength: 5,
 	dnaHatPos: 0,
 	dnaHeadPos: 1,
 	dnaEyesPos: 2,
@@ -153,7 +153,14 @@ function loadHeroFromDnaString(heroDnaString) {
 }
 
 function randomInt(min, max) {
-  return Math.floor(Math.random() * (max - min + 1) + min);
+	if (min === max) {
+		return min;
+	}
+	else if (min > max) {
+		throw new Error("Minimum value cannot be larger than maximum value");
+	}
+	
+	return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
 function generateRandomHeroDna() {
