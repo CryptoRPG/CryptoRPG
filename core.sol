@@ -1,21 +1,18 @@
 pragma solidity ^0.6.9;
 
 contract CryptoRpgCore {
-    struct Item {
-        uint16 kind;
-    }
+    enum EntityKind {HERO, MOB, BOSS}
 
-    struct Entity {
+    struct Hero {
         string name;
-        uint16 kind;
+        EntityKind kind;
         uint256 dna;
         uint16 level;
+        uint8 xp;
         uint16 health;
         uint16 attack;
         uint16 defense;
     }
-
-    address constant ownerAddress = 0x9CfD5D69e1F59437B3e2c9A64B6E14190b973DD0;
 
     uint16 constant entityKindHero = 0;
 
@@ -57,27 +54,51 @@ contract CryptoRpgCore {
 
     uint16 constant mintHeroDefenseRange = 10;
 
-    Entity[] public heroes;
+    address public devAddress = 0x9CfD5D69e1F59437B3e2c9A64B6E14190b973DD0;
+
+    bool public paused = false;
+
+    Hero[] heroes;
+
+    mapping(address => Hero[]) ownerToHeroIndex;
+
+    modifier devOnly() {
+        require(
+            msg.sender == ownerAddress,
+            "Cannot access developer-only functionality."
+        );
+
+        _;
+    }
+
+    modifier whenNotPaused() {
+        require(!paused, "Contract is paused.");
+        _;
+    }
+
+    function setDevAddress(address _devAddress) external devOnly {
+        devAddress = _devAddress;
+    }
+
+    function setPaused(bool _paused) public devOnly {
+        paused = _paused;
+    }
 
     function _createHero(
         string memory _name,
         uint256 _dna,
         uint16 _level,
+        uint8 _xp,
         uint16 _health,
         uint16 _attack,
-        uint16 _defense
-    ) private {
-        heroes.push(
-            Entity(
-                _name,
-                entityKindHero,
-                _dna,
-                _level,
-                _health,
-                _attack,
-                _defense
-            )
+        uint16 _defense,
+        address _owner
+    ) internal returns (uint256) {
+        uint256 newHeroId = ownedHeroes[owner].push(
+            Hero(_name, _dna, _level, _xp, _health, _attack, _defense)
         );
+
+        return newHeroId - 1;
     }
 
     function _generateRandomDna(string memory _string)
@@ -104,28 +125,36 @@ contract CryptoRpgCore {
         // TODO
     }
 
-    function mintHero(string memory _name) public {
+    function mintHero(string memory _name) public ownerOnly returns (uint256) {
         uint256 randomDna = _generateRandomDna(_name);
 
-        _createHero(
+        uint16 level = _generateRandomValue(
             _name,
-            randomDna,
-            _generateRandomValue(_name, mintHeroLevelStart, mintHeroLevelRange),
-            _generateRandomValue(
-                _name,
-                mintHeroHealthStart,
-                mintHeroHealthRange
-            ),
-            _generateRandomValue(
-                _name,
-                mintHeroAttackStart,
-                mintHeroHealthRange
-            ),
-            _generateRandomValue(
-                _name,
-                mintHeroDefenseStart,
-                mintHeroDefenseRange
-            )
+            mintHeroLevelStart,
+            mintHeroLevelRange
         );
+
+        uint8 xp = 0;
+
+        uint16 health = _generateRandomValue(
+            _name,
+            mintHeroHealthStart,
+            mintHeroHealthRange
+        );
+
+        uint16 attack = _generateRandomValue(
+            _name,
+            mintHeroAttackStart,
+            mintHeroHealthRange
+        );
+
+        uint16 defense = _generateRandomValue(
+            _name,
+            mintHeroDefenseStart,
+            mintHeroDefenseRange
+        );
+
+        return
+            _createHero(_name, randomDna, level, xp, health, attack, defense);
     }
 }
