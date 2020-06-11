@@ -58,6 +58,8 @@ contract CryptoRpgCore {
 
     bool public paused = false;
 
+    uint8 public comissionFee = 3;
+
     Hero[] heroes;
 
     mapping(address => Hero[]) ownerToHeroIndex;
@@ -82,6 +84,17 @@ contract CryptoRpgCore {
 
     function setPaused(bool _paused) public devOnly {
         paused = _paused;
+    }
+
+    function setComissionFee(uint8 _comissionFee) public devOnly {
+        uint8 _newComissionFee = _comissionFee;
+
+        // Maximum comission fee of 50%. However, it would usually sit around <=3%.
+        if (_newComissionFee > 50) {
+            _newComissionFee = 50;
+        }
+
+        comissionFee = _newComissionFee;
     }
 
     function _createHero(
